@@ -11,6 +11,10 @@
 |
 */
 
+$router->post('login', [
+    'as' => 'login', 'uses' => 'UserController@login'
+]);
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -19,6 +23,13 @@ $router->get('key', function(){
     return str_random(32);
 });
 
-$router->get('users', [
-    'as' => 'users.index', 'uses' => 'UserController@index'
-]);
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    
+    $router->get('users', [
+        'as' => 'users.index', 'uses' => 'UserController@index'
+    ]);
+    
+    $router->post('users', [
+        'as' => 'users.store', 'uses' => 'UserController@store'
+    ]);
+});
