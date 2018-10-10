@@ -14,3 +14,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('key', function(){
+    return str_random(32);
+});
+
+$router->get('users', [
+    'as' => 'users.index', 'uses' => 'UserController@index'
+]);
