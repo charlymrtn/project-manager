@@ -19,11 +19,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = New User();
-        $user->name = 'Esmeralda';
-        $user->email = 'esmeralda@correo.com';
-        // $user->password = '123';
         
-        return response()->json($user,200);
+        $users = User::all();
+        return response()->json($users,200);
     }
 }
